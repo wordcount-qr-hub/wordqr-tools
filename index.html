@@ -1,2 +1,66 @@
-<h1>My Word & QR Tools</h1>
-<p>Coming Soon...</p>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Word Counter & QR Generator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+<style>
+body{
+  font-family:Arial;
+  padding:20px;
+  max-width:700px;
+  margin:auto;
+}
+textarea,input,button{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+  font-size:16px;
+}
+.card{
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:15px;
+  margin:20px 0;
+}
+canvas{
+  display:block;
+  margin:auto;
+}
+</style>
+</head>
+<body>
+
+<h1>Word Counter & QR Generator</h1>
+
+<div class="card">
+<h2>Word Counter</h2>
+<textarea id="text" rows="6" placeholder="Type text here..."></textarea>
+<p>Words: <span id="words">0</span></p>
+<p>Characters: <span id="chars">0</span></p>
+</div>
+
+<div class="card">
+<h2>QR Code Generator</h2>
+<input id="qrtext" placeholder="Enter text or URL">
+<button onclick="generateQR()">Generate QR</button>
+<canvas id="qrcode"></canvas>
+</div>
+
+<script>
+document.getElementById("text").addEventListener("input", function(){
+ let t=this.value.trim();
+ document.getElementById("words").innerText=
+ t ? t.split(/\s+/).length : 0;
+ document.getElementById("chars").innerText=
+ this.value.length;
+});
+
+function generateQR(){
+ let text=document.getElementById("qrtext").value;
+ QRCode.toCanvas(document.getElementById("qrcode"), text);
+}
+</script>
+
+</body>
+</html>
