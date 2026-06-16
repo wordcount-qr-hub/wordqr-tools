@@ -44,8 +44,14 @@ canvas{
 <h2>QR Code Generator</h2>
 <input id="qrtext" placeholder="Enter text or URL">
 <button onclick="generateQR()">Generate QR</button>
-<canvas id="qrcode"></canvas>
-</div>
+<canfunction downloadQR(){
+  const canvas = document.getElementById("qrcode");
+  const link = document.createElement("a");
+  link.download = "qrcode.png";
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+}vas id="qrcode"></canvas>
+<button onclick="downloadQR()">Download QR</button></div>
 
 <script>
 document.getElementById("text").addEventListener("input", function(){
