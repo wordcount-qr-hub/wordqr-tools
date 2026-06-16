@@ -1,111 +1,137 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="google-site-verification" content="ShmH5GCs2PKBFF6Ra2dhyWOG-Fg3ltg-il35VRwmHcY" />
+<head>
 <title>Word Counter & QR Generator</title>
-  <meta name="description" content="Free online Word Counter and QR Code Generator tool.">
+<meta name="description" content="Free online Word Counter and QR Code Generator tool.">
 <meta name="keywords" content="word counter, qr generator, text tools">
 <meta name="robots" content="index, follow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js">
-  <body>
-<button onclick="toggleDarkMode()">🌙 Dark Mode</button>
-</script>
- }
-  
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
 <style>
-  .dark {
+body{
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 700px;
+  margin: auto;
+  transition: 0.3s;
+}
+
+button{
+  padding: 10px;
+  margin: 8px 0;
+  cursor: pointer;
+}
+
+textarea, input{
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.card{
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 20px 0;
+}
+
+canvas{
+  display: block;
+  margin: 10px auto;
+}
+
+.dark{
   background: #121212;
   color: white;
 }
 
-.dark .card {
+.dark .card{
   background: #1e1e1e;
   border-color: #444;
 }
 
 .dark textarea,
-.dark input {
+.dark input{
   background: #333;
   color: white;
   border: 1px solid #555;
 }
-body{
-  font-family:Arial;
-  padding:20px;
-  max-width:700px;
-  margin:auto;
-}
-textarea,input,button{
-  width:100%;
-  padding:10px;
-  margin:10px 0;
-  font-size:16px;
-}
-.card{
-  border:1px solid #ddd;
-  border-radius:10px;
-  padding:15px;
-  margin:20px 0;
-}
-canvas{
-  display:block;
-  margin:auto;
-}
 </style>
 </head>
+
 <body>
-  <button onclick="toggleDarkMode()">🌙 Dark Mode</button>
+
+<button onclick="toggleDarkMode()">🌙 Dark Mode</button>
 
 <h1>Word Counter & QR Generator</h1>
 
 <div class="card">
 <h2>Word Counter</h2>
+
 <textarea id="text" rows="6" placeholder="Type text here..."></textarea>
+
 <p>Words: <span id="words">0</span></p>
 <p>Characters: <span id="chars">0</span></p>
-  <p>Sentences: <span id="sentences">0</span></p>
+<p>Sentences: <span id="sentences">0</span></p>
 <p>Reading Time: <span id="reading">0</span> min</p>
 </div>
 
 <div class="card">
 <h2>QR Code Generator</h2>
+
 <input id="qrtext" placeholder="Enter text or URL">
+
 <button onclick="generateQR()">Generate QR</button>
-<canfunction downloadQR(){
-  const canvas = document.getElementById("qrcode");
-  const link = document.createElement("a");
-  link.download = "qrcode.png";
-  link.href = canvas.toDataURL("image/png");
-  link.click();
-}vas id="qrcode"></canvas>
-<button onclick="downloadQR()">Download QR</button></div>
+
+<canvas id="qrcode"></canvas>
+
+<button onclick="downloadQR()">Download QR</button>
+</div>
 
 <script>
+
 document.getElementById("text").addEventListener("input", function(){
- let t=this.value.trim();
- document.getElementById("words").innerText=
- t ? t.split(/\s+/).length : 0;
- document.getElementById("chars").innerText=
- this.value.length;
-  const words = t ? t.split(/\s+/).length : 0;
+
+let t = this.value.trim();
+const words = t ? t.split(/\s+/).length : 0;
+
+document.getElementById("words").innerText = words;
+document.getElementById("chars").innerText = this.value.length;
 
 document.getElementById("sentences").innerText =
 t ? t.split(/[.!?]+/).filter(Boolean).length : 0;
 
 document.getElementById("reading").innerText =
 Math.max(1, Math.ceil(words / 200));
-  document.getElementById("sentences").innerText =
-this.value ? this.value.split(/[.!?]+/).filter(Boolean).length : 0;
 
-const words = t ? t.split(/\s+/).length : 0;
-document.getElementById("reading").innerText =
-Math.max(1, Math.ceil(words / 200));
 });
 
 function generateQR(){
- let text=document.getElementById("qrtext").value;
- QRCode.toCanvas(document.getElementById("qrcode"), text);
+  let text = document.getElementById("qrtext").value;
+
+  QRCode.toCanvas(
+    document.getElementById("qrcode"),
+    text
+  );
 }
+
+function downloadQR(){
+  const canvas = document.getElementById("qrcode");
+
+  const link = document.createElement("a");
+  link.download = "qrcode.png";
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+}
+
+function toggleDarkMode(){
+  document.body.classList.toggle("dark");
+}
+
 </script>
 
 </body>
