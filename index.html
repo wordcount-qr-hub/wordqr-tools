@@ -63,6 +63,12 @@ document.getElementById("text").addEventListener("input", function(){
  t ? t.split(/\s+/).length : 0;
  document.getElementById("chars").innerText=
  this.value.length;
+  document.getElementById("sentences").innerText =
+this.value ? this.value.split(/[.!?]+/).filter(Boolean).length : 0;
+
+const words = t ? t.split(/\s+/).length : 0;
+document.getElementById("reading").innerText =
+Math.max(1, Math.ceil(words / 200));
 });
 
 function generateQR(){
