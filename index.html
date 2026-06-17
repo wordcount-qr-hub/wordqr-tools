@@ -101,7 +101,8 @@ let t = this.value.trim();
 const words = t ? t.split(/\s+/).length : 0;
 
 document.getElementById("words").innerText = words;
-document.getElementById("chars").innerText = this.value.length;
+document.getElementById("chars").innerText =
+this.value.replace(/\s/g, '').length;
 
 document.getElementById("sentences").innerText =
 t ? t.split(/[.!?]+/).filter(Boolean).length : 0;
